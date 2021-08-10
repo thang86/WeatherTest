@@ -26,7 +26,7 @@ class WeatherRepository @Inject constructor(
 
         return object : NetworkBoundResource<List<Weather>, List<WeatherResponse>>() {
             override fun shouldFetch(data: List<Weather>?): Boolean {
-                return true
+                return data.isNullOrEmpty()
             }
 
             override suspend fun loadFromDb(): List<Weather> {
