@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../../../../../../layout/custom_preview.xml" value="2.5" />
         <entry key="app/src/main/res/drawable/circular.xml" value="0.19739583333333333" />
+        <entry key="app/src/main/res/drawable/shape_background_linear.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/drawable/shape_background_purple.xml" value="0.19427083333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1671875" />
-        <entry key="app/src/main/res/layout/weather_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/weather_fragment.xml" value="0.335" />
       </map>
     </option>
   </component>

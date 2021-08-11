@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WeatherTest</string>
+    <string name="generic_name">%s %</string>
 </resources>

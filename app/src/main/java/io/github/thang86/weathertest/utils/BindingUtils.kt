@@ -43,3 +43,14 @@ fun TextView.bindDate(date: String?) {
 fun TextView.bindTemperature(temperature: String?) {
     text = "${temperature?.round(1)} ${"\u2103"}"
 }
+
+@BindingAdapter("percent")
+fun TextView.bindPercent(percent: String?) {
+    text = "$percent %"
+}
+
+@BindingAdapter("progessBar")
+fun ArcProgress.bindProgressBar(percent: String?) {
+    val result = percent?.toFloat()
+    setCurrentValues(result?:0f)
+}

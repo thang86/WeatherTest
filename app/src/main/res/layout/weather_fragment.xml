@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -72,6 +73,100 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_status_weather" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_date">
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_background_blue"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <io.github.thang86.weathertest.utils.ArcProgress
+                    android:layout_width="20dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center_horizontal"
+                    app:max_value="100"
+                    app:back_width="5dp"
+                    app:front_width="8dp"
+                    app:progessBar="@{String.valueOf(viewModel.results.data.get(0).humidity)}"
+                    app:total_engle="270"
+                    app:back_color="@android:color/darker_gray"
+                    />
+
+                <TextView
+                    android:id="@+id/text_humidity_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="26sp"
+                    app:percent="@{String.valueOf(viewModel.results.data.get(0).humidity)}"
+                    tools:text="71%" />
+
+                <TextView
+                    android:id="@+id/text_humidity_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Humidity"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="250dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/shape_background_purple"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <io.github.thang86.weathertest.utils.ArcProgress
+                    android:layout_width="20dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center_horizontal"
+                    app:max_value="100"
+                    app:back_width="5dp"
+                    app:progessBar="@{String.valueOf(viewModel.results.data.get(0).predictability)}"
+                    app:front_width="8dp"
+                    app:total_engle="270"
+                    app:back_color="@android:color/darker_gray"
+                    />
+
+                <TextView
+                    android:id="@+id/text_predictability_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="26sp"
+                    app:percent="@{String.valueOf(viewModel.results.data.get(0).predictability)}"
+                    tools:text="71%" />
+
+                <TextView
+                    android:id="@+id/text_predictability_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Predictability"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

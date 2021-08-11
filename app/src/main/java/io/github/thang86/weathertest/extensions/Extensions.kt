@@ -21,6 +21,9 @@ fun String.round(number: Int): Double {
     return round((this.toDouble()) * multiplier) / multiplier
 }
 
+/**
+ * The extension functions use parse date for format
+ */
 fun String.parseDate(): String {
     val patternInput = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.ENGLISH)
     val patternOutput = SimpleDateFormat("EEE MMM d, yyyy", Locale.ENGLISH)

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.thang86.weathertest.R
 import io.github.thang86.weathertest.databinding.WeatherFragmentBinding
+import kotlinx.android.synthetic.main.weather_fragment.*
 
 /**
  *
