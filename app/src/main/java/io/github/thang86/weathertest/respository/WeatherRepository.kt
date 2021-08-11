@@ -1,5 +1,6 @@
 package io.github.thang86.weathertest.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import io.github.thang86.weathertest.api.WeatherResponse
 import io.github.thang86.weathertest.api.WeatherService
@@ -39,8 +40,14 @@ class WeatherRepository @Inject constructor(
 
             override suspend fun createCallAsync(): List<WeatherResponse> {
                 return withContext(Dispatchers.IO) {
-                    val response = service.fetchWeather().await()
-                    response
+                    try {
+                      val response = service.fetchWeather().await()
+                        response
+                    }catch (e:Exception){
+                        e.printStackTrace()
+                        mutableListOf()
+                    }
+
                 }
             }
 
@@ -56,6 +63,7 @@ class WeatherRepository @Inject constructor(
             }
 
             override fun onFetchFailed() {
+                Log.e("ERRRRRR","RRR")
             }
 
 

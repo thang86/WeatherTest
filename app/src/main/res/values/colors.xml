@@ -12,6 +12,8 @@
     <color name="teal_800">#54AFEE</color>
     <color name="purple_990">#2D4981</color>
 
-
+    <color name="themeColor1">#946c82</color>
+    <color name="themeColor2">#758b8b</color>
+    <color name="purple_999">#2D4981</color>
 
 </resources>

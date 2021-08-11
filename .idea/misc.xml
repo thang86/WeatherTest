@@ -4,10 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../../../../../../layout/custom_preview.xml" value="2.5" />
+        <entry key="app/src/main/res/drawable/calendar_item_background.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/drawable/circular.xml" value="0.19739583333333333" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/drawable/shape_background_linear.xml" value="0.19427083333333334" />
         <entry key="app/src/main/res/drawable/shape_background_purple.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/drawable/shape_color_radient.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1671875" />
+        <entry key="app/src/main/res/layout/calendar_item.xml" value="0.15052083333333333" />
+        <entry key="app/src/main/res/layout/custom_calendar_day.xml" value="0.15052083333333333" />
+        <entry key="app/src/main/res/layout/first_special_calendar_item.xml" value="0.15052083333333333" />
+        <entry key="app/src/main/res/layout/first_special_selected_calendar_item.xml" value="0.15052083333333333" />
+        <entry key="app/src/main/res/layout/second_special_calendar_item.xml" value="0.15052083333333333" />
         <entry key="app/src/main/res/layout/weather_fragment.xml" value="0.335" />
       </map>
     </option>

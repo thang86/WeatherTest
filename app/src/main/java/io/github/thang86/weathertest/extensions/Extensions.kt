@@ -36,3 +36,6 @@ fun String.parseDate(): String {
     }
     return newDate
 }
+fun Calendar.getCurrentDate():String{
+    return SimpleDateFormat("yyyy/M/dd").format(this.time)
+}

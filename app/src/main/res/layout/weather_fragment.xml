@@ -25,16 +25,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/calendar_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="8dp" />
+
         <ImageView
             android:id="@+id/image_weather"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ic_launcher_background"
             app:imageUrl="@{viewModel.results.data.get(0).weatherStateAbbr}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/calendar_recycler_view"
+            />
 
         <TextView
             android:id="@+id/text_temperature"
