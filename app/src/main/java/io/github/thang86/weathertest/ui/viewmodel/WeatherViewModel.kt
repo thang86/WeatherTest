@@ -20,7 +20,7 @@ class WeatherViewModel @ViewModelInject constructor(private val responsetory: We
     ViewModel() {
     private val _results = MediatorLiveData<Resource<List<Weather>>>()
     val results: LiveData<Resource<List<Weather>>> = _results
-    private var movieSource: LiveData<Resource<List<Weather>>> = MutableLiveData()
+    private var weatherSource: LiveData<Resource<List<Weather>>> = MutableLiveData()
     val input = MutableLiveData<String>()
 
     /**
@@ -28,13 +28,13 @@ class WeatherViewModel @ViewModelInject constructor(private val responsetory: We
      * Submit the list to the adapter via BindingAdapters.
      */
     fun fetchWeather(date: String) {
-        _results.removeSource(movieSource)
+        _results.removeSource(weatherSource)
         viewModelScope.launch {
-            movieSource = responsetory.fetchWeather(date)
-            Log.e("THANGBCD", "--" + movieSource.value)
+            weatherSource = responsetory.fetchWeather(date)
+            Log.e("THANGBCD", "--" + weatherSource.value)
         }
 
-        _results.addSource(movieSource) {
+        _results.addSource(weatherSource) {
             _results.value = it
         }
     }
