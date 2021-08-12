@@ -1,10 +1,9 @@
-package io.github.thang86.weathertest.ui
+package io.github.thang86.weathertest.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,8 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.thang86.weathertest.R
 import io.github.thang86.weathertest.databinding.WeatherFragmentBinding
 import io.github.thang86.weathertest.extensions.getCurrentDate
+import io.github.thang86.weathertest.ui.viewmodel.WeatherViewModel
+import io.github.thang86.weathertest.ui.adapter.CalendarAdapter
 import kotlinx.android.synthetic.main.weather_fragment.*
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -36,7 +36,6 @@ class WeatherFragment : Fragment() {
     private val mainViewModel: WeatherViewModel by viewModels()
 
     private val lastDayInCalendar = Calendar.getInstance(Locale.ENGLISH)
-    private val sdf = SimpleDateFormat("MMMM yyyy", Locale.ENGLISH)
     private val cal = Calendar.getInstance(Locale.ENGLISH)
 
     private val currentDate = Calendar.getInstance(Locale.ENGLISH)
@@ -49,6 +48,11 @@ class WeatherFragment : Fragment() {
     private var selectedYear: Int = currentYear
 
     private val dates = ArrayList<Date>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mainViewModel.fetchWeather(Calendar.getInstance().getCurrentDate())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,13 +68,7 @@ class WeatherFragment : Fragment() {
             viewModel = mainViewModel
             lifecycleOwner = viewLifecycleOwner
         }
-        return binding.root
 
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mainViewModel.search()
         /**
          * Adding SnapHelper here, but it is not needed. I add it just to looks better.
          */
@@ -84,49 +82,17 @@ class WeatherFragment : Fragment() {
         lastDayInCalendar.add(Calendar.MONTH, 6)
 
         setUpCalendar()
+        return binding.root
 
-        /**
-         * Go to the previous month. First, make sure the current month (cal)
-         * is after the current date so that you can't go before the current month.
-         * Then subtract  one month from the sludge. Finally, ask if cal is equal to the current date.
-         * If so, then you don't want to give @param changeMonth, otherwise changeMonth as cal.
-         */
-//        calendar_prev_button!!.setOnClickListener {
-//            if (cal.after(currentDate)) {
-//                cal.add(Calendar.MONTH, -1)
-//                if (cal == currentDate)
-//                    setUpCalendar()
-//                else
-//                    setUpCalendar(changeMonth = cal)
-//            }
-//        }
-
-        /**
-         * Go to the next month. First check if the current month (cal) is before lastDayInCalendar,
-         * so that you can't go after the last possible month. Then add one month to cal.
-         * Then put @param changeMonth.
-         */
-//        calendar_next_button!!.setOnClickListener {
-//            if (cal.before(lastDayInCalendar)) {
-//                cal.add(Calendar.MONTH, 1)
-//                setUpCalendar(changeMonth = cal)
-//            }
-//        }
     }
 
     /**
      * @param changeMonth I am using it only if next or previous month is not the current month
      */
     private fun setUpCalendar(changeMonth: Calendar? = null) {
-//        txt_current_month!!.text = sdf.format(cal.time)
         val monthCalendar = cal.clone() as Calendar
         val maxDaysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-        /**
-         *
-         * If changeMonth is not null, then I will take the day, month, and year from it,
-         * otherwise set the selected date as the current date.
-         */
         selectedDay =
             when {
                 changeMonth != null -> changeMonth.getActualMinimum(Calendar.DAY_OF_MONTH)
@@ -147,7 +113,7 @@ class WeatherFragment : Fragment() {
         dates.clear()
         monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
 
-        /**
+        /*
          * Fill dates with days and set currentPosition.
          * currentPosition is the position of first selected day.
          */
@@ -159,18 +125,17 @@ class WeatherFragment : Fragment() {
             monthCalendar.add(Calendar.DAY_OF_MONTH, 1)
         }
 
-        // Assigning calendar view.
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        calendar_recycler_view!!.layoutManager = layoutManager
         val calendarAdapter = CalendarAdapter(requireContext(), dates, currentDate, changeMonth)
-        calendar_recycler_view!!.adapter = calendarAdapter
+        binding.calendarRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = calendarAdapter
+        }
 
-        /**
+        /*
          * If you start the application, it centers the current day, but only if the current day
-         * is not one of the first (1, 2, 3) or one of the last (29, 30, 31).
          */
         when {
-            currentPosition > 2 -> calendar_recycler_view!!.scrollToPosition(currentPosition - 3)
+            currentPosition > 2 -> binding.calendarRecyclerView.scrollToPosition(currentPosition - 3)
             maxDaysInMonth - currentPosition < 2 -> calendar_recycler_view!!.scrollToPosition(
                 currentPosition
             )
@@ -178,7 +143,7 @@ class WeatherFragment : Fragment() {
         }
 
 
-        /**
+        /*
          * After calling up the OnClickListener, the text of the current month and year is changed.
          * Then change the selected day.
          */
@@ -188,10 +153,33 @@ class WeatherFragment : Fragment() {
                 clickCalendar.time = dates[position]
                 selectedDay = clickCalendar[Calendar.DAY_OF_MONTH]
 
-                val newDate = ""+clickCalendar[Calendar.YEAR] +"/"+(clickCalendar[Calendar.MONTH]+1)/**/ +"/"+clickCalendar[Calendar.DAY_OF_MONTH]
-                Toast.makeText(context,""+newDate,Toast.LENGTH_LONG).show()
-//                mainViewModel.search()
+                val newDate =
+                    "" + clickCalendar[Calendar.YEAR] + "/" + (clickCalendar[Calendar.MONTH] + 1) + "/" + clickCalendar[Calendar.DAY_OF_MONTH]
+                mainViewModel.fetchWeather(newDate)
             }
         })
     }
+
+//    fun consumeEvent(calendar: Calendar, myFunc: () -> Int, currentDate: Int): Int {
+//        return when {
+//            calendar != null -> myFunc()
+//            else -> currentDate
+//        }
+////        selectedDay =
+////            when {
+////                changeMonth != null -> changeMonth.getActualMinimum(Calendar.DAY_OF_MONTH)
+////                else -> currentDay
+////            }
+////        selectedMonth =
+////            when {
+////                changeMonth != null -> changeMonth[Calendar.MONTH]
+////                else -> currentMonth
+////            }
+////        selectedYear =
+////            when {
+////                chang/**/eMonth != null -> changeMonth[Calendar.YEAR]
+////                else -> currentYear
+////            }
+//
+//    }
 }

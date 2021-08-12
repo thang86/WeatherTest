@@ -25,7 +25,7 @@ fun String.round(number: Int): Double {
  * The extension functions use parse date for format
  */
 fun String.parseDate(): String {
-    val patternInput = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.ENGLISH)
+    val patternInput = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     val patternOutput = SimpleDateFormat("EEE MMM d, yyyy", Locale.ENGLISH)
     var newDate = ""
     try {

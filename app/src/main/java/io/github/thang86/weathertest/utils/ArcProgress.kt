@@ -40,10 +40,8 @@ class ArcProgress : View {
 
     private var diameter = 500
 
-    private var centerX
-            = 0f
-    private var centerY
-            = 0f
+    private var centerX = 0f
+    private var centerY = 0f
 
     private var allArcPaint: Paint? = null
     private var progressPaint: Paint? = null
@@ -76,11 +74,6 @@ class ArcProgress : View {
     private var k = 0f
 
 
-    /**
-     * 初始化布局配置
-     * @param context
-     * @param attrs
-     */
     private fun initCofig(context: Context, attrs: AttributeSet) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.ColorArcProgressBar)
         sweepAngle = a.getInteger(R.styleable.ColorArcProgressBar_total_engle, 270).toFloat()
@@ -99,12 +92,12 @@ class ArcProgress : View {
         val width =
             (2 * longdegree + progressWidth + diameter + 2 * DEGREE_PROGRESS_DISTANCE).toInt()
         val height =
-            (2* longdegree  + progressWidth + diameter + 2 * DEGREE_PROGRESS_DISTANCE).toInt()
+            (2 * longdegree + progressWidth + diameter + 2 * DEGREE_PROGRESS_DISTANCE).toInt()
         setMeasuredDimension(width, height)
     }
 
     private fun initView() {
-        diameter =  getScreenWidth() / 4
+        diameter = getScreenWidth() / 4
 
         bgRect = RectF()
         bgRect!!.top = longdegree + progressWidth / 2 + DEGREE_PROGRESS_DISTANCE
@@ -159,19 +152,11 @@ class ArcProgress : View {
         invalidate()
     }
 
-    /**
-     * 设置最大值
-     * @param maxValues
-     */
     fun setMaxValues(maxValues: Float) {
         this.maxValues = maxValues
         k = sweepAngle / maxValues
     }
 
-    /**
-     * 设置当前值
-     * @param currentValues
-     */
     fun setCurrentValues(currentValues: Float) {
         var currentValues = currentValues
         if (currentValues > maxValues) {
@@ -186,11 +171,6 @@ class ArcProgress : View {
     }
 
 
-    /**
-     * 为进度设置动画
-     * @param last
-     * @param current
-     */
     private fun setAnimation(last: Float, current: Float, length: Int) {
         progressAnimator = ValueAnimator.ofFloat(last, current)
         progressAnimator?.duration = length.toLong()
@@ -202,20 +182,11 @@ class ArcProgress : View {
         progressAnimator?.start()
     }
 
-    /**
-     * dip 转换成px
-     * @param dip
-     * @return
-     */
     private fun dipToPx(dip: Float): Int {
         val density = context.resources.displayMetrics.density
         return (dip * density + 0.5f * if (dip >= 0) 1 else -1).toInt()
     }
 
-    /**
-     * 得到屏幕宽度
-     * @return
-     */
     private fun getScreenWidth(): Int {
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val displayMetrics = DisplayMetrics()

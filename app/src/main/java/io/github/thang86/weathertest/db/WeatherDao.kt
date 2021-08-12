@@ -2,7 +2,6 @@ package io.github.thang86.weathertest.db
 
 import androidx.room.*
 import io.github.thang86.weathertest.model.Weather
-import io.github.thang86.weathertest.utils.Converters
 
 /**
  *
@@ -17,9 +16,6 @@ interface WeatherDao {
     suspend fun insert(list: Weather):Long
 
     @Query("SELECT * FROM weather_tables")
-    suspend fun getWeather(): Weather
+    suspend fun getWeather():List<Weather>
 
-    //Updates movie's fields.
-//    @Update
-//    suspend fun update(weather: Weather)
 }

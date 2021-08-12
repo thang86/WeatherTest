@@ -6,7 +6,7 @@
     app:startDestination="@id/weatherFragment">
 
     <fragment android:id="@+id/weatherFragment"
-        android:name="io.github.thang86.weathertest.ui.WeatherFragment"
+        android:name="io.github.thang86.weathertest.ui.fragment.WeatherFragment"
         android:label="jjjjj"
         tools:layout="@layout/fragment_weather"/>
 

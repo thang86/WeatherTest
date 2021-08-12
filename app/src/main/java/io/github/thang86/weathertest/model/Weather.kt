@@ -16,12 +16,13 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(tableName = "weather_tables")
 class Weather(
-    @PrimaryKey @ColumnInfo(name = "id") var id: String = "",
+    @PrimaryKey(autoGenerate = true) @ColumnInfo var autoIncrement: Int = 0,
+    @ColumnInfo(name = "id") var id: String = "",
     @ColumnInfo(name = "weather_state_name") var weatherStateName: String = "",
     @ColumnInfo(name = "weather_state_abbr") var weatherStateAbbr: String = "",
     @ColumnInfo(name = "wind_direction_compass") var windDirectionCompass: String = "null",
     @ColumnInfo(name = "created") var created: String = "",
-    @ColumnInfo(name = "applicable_date") var applicableDate: String = "",
+    @ColumnInfo(name = "applicable_date") var applicableDate: String = "2021/08/12",
     @ColumnInfo(name = "min_temp") var minTemp: Double = 0.0,
     @ColumnInfo(name = "max_temp") var maxTemp: Double = 0.0,
     @ColumnInfo(name = "the_temp") var theTemp: Double = 0.0,

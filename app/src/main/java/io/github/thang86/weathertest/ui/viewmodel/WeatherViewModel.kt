@@ -1,4 +1,4 @@
-package io.github.thang86.weathertest.ui
+package io.github.thang86.weathertest.ui.viewmodel
 
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
@@ -21,16 +21,16 @@ class WeatherViewModel @ViewModelInject constructor(private val responsetory: We
     private val _results = MediatorLiveData<Resource<List<Weather>>>()
     val results: LiveData<Resource<List<Weather>>> = _results
     private var movieSource: LiveData<Resource<List<Weather>>> = MutableLiveData()
-
+    val input = MutableLiveData<String>()
 
     /**
-     * Get the list of searched movies via repository.
+     * Get the list of  weather via repository.
      * Submit the list to the adapter via BindingAdapters.
      */
-    fun search() {
+    fun fetchWeather(date: String) {
         _results.removeSource(movieSource)
         viewModelScope.launch {
-            movieSource = responsetory.fetchWeather()
+            movieSource = responsetory.fetchWeather(date)
             Log.e("THANGBCD", "--" + movieSource.value)
         }
 
