@@ -1,6 +1,7 @@
 package io.github.thang86.weathertest.utils
 
 import android.annotation.SuppressLint
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -53,4 +54,13 @@ fun TextView.bindPercent(percent: String?) {
 fun ArcProgress.bindProgressBar(percent: String?) {
     val result = percent?.toFloat()
     setCurrentValues(result?:0f)
+}
+
+/**
+ * Binding adapter used to manage visibility
+ * of the loading state layout.
+ */
+@BindingAdapter("visibility")
+fun showHide(view: View, show: Boolean) {
+    view.visibility = if (show) View.VISIBLE else View.GONE
 }
